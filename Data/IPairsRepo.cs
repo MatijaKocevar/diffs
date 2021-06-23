@@ -6,9 +6,11 @@ namespace base64diffs.Data
     //interface 
     public interface IPairsRepo
     {
-        Result GetDiffByID(int id);
-        Result PutLeft(int id);
-        Result PutRight(int id);
+        Result GetDiffs(int id);
+        Pair GetLeft(int id);
+        Pair GetRight(int id);
+        Pair PutLeft(int id);
+        Pair PutRight(int id);
 
     }
 }
