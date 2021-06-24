@@ -1,12 +1,19 @@
-/* using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using base64diffs.Models;
 
 namespace base64diffs.Data
 {
-    public class MockPairsRepo : IPairsRepo
+    public class SqlDiffsRepo : IPairsRepo
     {
-        //implementation of interface
+        private readonly base64diffsContext _context;
+
+        public SqlDiffsRepo(base64diffsContext context)
+        {
+            _context = context;
+        }
+
         public Result GetDiffs(int id)
         {
             Result results = new Result();
@@ -14,9 +21,9 @@ namespace base64diffs.Data
 
             Pair pair = new Pair();
 
-            pair.Id = id;
-            pair.Left = GetLeft(id).Left;
-            pair.Right = GetRight(id).Right;
+            pair = GetPair(id);
+
+            Console.WriteLine("ID:" + pair.Id + " Left:" + pair.Left + " Right:" + pair.Right + pair);
 
 
             byte[] L = Convert.FromBase64String(pair.Left);
@@ -84,24 +91,19 @@ namespace base64diffs.Data
             return results;
         }
 
-        public Pair GetLeft(int id)
+        public Pair GetPair(int id)
         {
-            return new Pair { Id = id, Left = "AAAAAA==" };
-        }
-
-        public Pair GetRight(int id)
-        {
-            return new Pair { Id = id, Right = "AQABAQ==" };
+            return _context.Pairs.FirstOrDefault(p => p.Id == id);
         }
 
         public Pair PutLeft(int id)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public Pair PutRight(int id)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
-} */
+}

@@ -7,8 +7,7 @@ namespace base64diffs.Data
     public interface IPairsRepo
     {
         Result GetDiffs(int id);
-        Pair GetLeft(int id);
-        Pair GetRight(int id);
+        Pair GetPair(int id);
         Pair PutLeft(int id);
         Pair PutRight(int id);
 

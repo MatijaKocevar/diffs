@@ -16,7 +16,6 @@ namespace base64diffs.Controllers
         {
             _rep = repository;
         }
-
         // v1/diff/1
         [HttpGet("{id}")]
         public ActionResult GetDiffs(int id)
