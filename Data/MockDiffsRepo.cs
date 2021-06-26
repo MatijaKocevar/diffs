@@ -4,7 +4,8 @@ using base64diffs.Models;
 
 namespace base64diffs.Data
 {
-    public class MockPairsRepo : IPairsRepo
+    //implementation of interface
+    public class MockPairsRepo : IDiffsRepo
     {
         public void CreatePair(Pair pair)
         {

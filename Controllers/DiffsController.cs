@@ -1,21 +1,22 @@
 using System;
-using System.Collections.Generic;
 using base64diffs.Data;
 using base64diffs.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace base64diffs.Controllers
 {
-    [Route("/v1/diff")]
-    [ApiController]
+
+    [Route("/v1/diff")] //controller level route
+    [ApiController] //gives default behaviours
     public class DiffsController : ControllerBase
     {
-        private readonly IPairsRepo _rep;
+        private readonly IDiffsRepo _rep;
 
-        public DiffsController(IPairsRepo repository)
+        public DiffsController(IDiffsRepo repository)
         {
             _rep = repository;
         }
+
         // v1/diff/{id}
         [HttpGet("{id}")]
         public ActionResult GetDiffs(int id)
@@ -25,6 +26,7 @@ namespace base64diffs.Controllers
             //check if data is there
             if (pair == null || pair.Left == null || pair.Right == null)
             {
+                //if pair is not found or if one of the pairs is missing..return status 404
                 return NotFound();
             }
 
@@ -38,49 +40,8 @@ namespace base64diffs.Controllers
                 return Ok(res);
             }
 
+            //returns Result type and diffs
             return Ok(response);
-        }
-
-        // v1/diff/{id}/left
-        [HttpPut("{id}/left")]
-        public ActionResult UpdateLeft(int id, Left input)
-        {
-            if (_rep.PairDoesExist(id))
-            {
-                _rep.GetPair(id).Left = input.data;
-                _rep.SaveChanges();
-            }
-            else
-            {
-                Pair pair = new Pair();
-                pair.Id = id;
-                pair.Left = input.data;
-                _rep.CreatePair(pair);
-                _rep.SaveChanges();
-            }
-
-            return Created("/v1/diff/" + id.ToString(), _rep.GetPair(id));
-        }
-
-        // v1/diff/{id}/right
-        [HttpPut("{id}/right")]
-        public ActionResult UpdateRight(int id, Right input)
-        {
-            if (_rep.PairDoesExist(id))
-            {
-                _rep.GetPair(id).Right = input.data;
-                _rep.SaveChanges();
-            }
-            else
-            {
-                Pair pair = new Pair();
-                pair.Id = id;
-                pair.Right = input.data;
-                _rep.CreatePair(pair);
-                _rep.SaveChanges();
-            }
-
-            return Created("/v1/diff/" + id.ToString(), _rep.GetPair(id));
         }
 
     }

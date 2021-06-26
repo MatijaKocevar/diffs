@@ -11,6 +11,7 @@ namespace base64diffs.Utils
             Result results = new Result();
             results.diffs = new List<Diff>();
 
+            //converts base64 string to an array of 8-bit unsigned integers
             byte[] L = Convert.FromBase64String(pair.Left);
             byte[] R = Convert.FromBase64String(pair.Right);
 

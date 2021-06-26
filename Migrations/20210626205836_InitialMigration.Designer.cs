@@ -9,7 +9,7 @@ using base64diffs.Data;
 namespace base64diffs.Migrations
 {
     [DbContext(typeof(base64diffsContext))]
-    [Migration("20210624185909_InitialMigration")]
+    [Migration("20210626205836_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
