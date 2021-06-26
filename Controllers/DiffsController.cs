@@ -1,6 +1,6 @@
-using System;
+using AutoMapper;
 using base64diffs.Data;
-using base64diffs.Models;
+using base64diffs.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace base64diffs.Controllers
@@ -10,19 +10,21 @@ namespace base64diffs.Controllers
     [ApiController] //gives default behaviours
     public class DiffsController : ControllerBase
     {
-        private readonly IDiffsRepo _rep;
+        private readonly IDiffsRepo _repo;
+        private readonly IMapper _mapper;
 
-        public DiffsController(IDiffsRepo repository)
+        public DiffsController(IDiffsRepo repository, IMapper mapper)
         {
-            _rep = repository;
+            _repo = repository;
+            _mapper = mapper;
         }
 
         // v1/diff/{id}
         [HttpGet("{id}")]
-        public ActionResult GetDiffs(int id)
+        public ActionResult GetResults(int id)
         {
-            //Get data from database
-            var pair = _rep.GetPair(id);
+            //Get data from database by id
+            var pair = _repo.GetPair(id);
             //check if data is there
             if (pair == null || pair.Left == null || pair.Right == null)
             {
@@ -30,17 +32,16 @@ namespace base64diffs.Controllers
                 return NotFound();
             }
 
-            //get diffs from data
-            var response = _rep.GetDiffs(pair);
-            //Check if diffs are found...if they're not only return response type
-            if (response.diffs == null)
+            //calculate diffs from given data
+            var response = _repo.GetResults(pair);
+            //Check if diffs are found...if they're not only return response type and status 200
+            if (response.diffResultType == "SizeDoNotMatch" || response.diffResultType == "Equals")
             {
-                ResultType res = new ResultType();
-                res.diffResultType = response.diffResultType;
-                return Ok(res);
+                //uses DTO's to return only ResultType..without empty diffs[...] + 200 code
+                return Ok(_mapper.Map<ResultTypeDTO>(response));
             }
 
-            //returns Result type and diffs
+            //returns Result type and diffs + status 200
             return Ok(response);
         }
 

@@ -6,7 +6,7 @@ namespace base64diffs.Data
     //interface defenition 
     public interface IDiffsRepo
     {
-        Result GetDiffs(Pair pair);
+        Result GetResults(Pair pair);
         Pair GetPair(int id);
         bool PairDoesExist(int id);
         void CreatePair(Pair pair);

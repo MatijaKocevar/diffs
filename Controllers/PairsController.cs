@@ -1,5 +1,7 @@
 using System;
+using AutoMapper;
 using base64diffs.Data;
+using base64diffs.DTOs;
 using base64diffs.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,16 +12,16 @@ namespace base64diffs.Controllers
     [ApiController] //gives default behaviours
     public class PairsController : ControllerBase
     {
-        private readonly IDiffsRepo _rep;
+        private readonly IDiffsRepo _repo;
 
         public PairsController(IDiffsRepo repository)
         {
-            _rep = repository;
+            _repo = repository;
         }
 
         // v1/diff/{id}/left
         [HttpPut("{id}/left")]
-        public ActionResult UpdateLeft(int id, Left input)
+        public ActionResult UpdateLeft(int id, LeftCreateDTO input)
         {
             //checks if the input data is a valid BASE64 encoded string
             try
@@ -32,11 +34,11 @@ namespace base64diffs.Controllers
             }
 
             //checks if pair exists in the database 
-            if (_rep.PairDoesExist(id))
+            if (_repo.PairDoesExist(id))
             {
                 //updates data and saves changes to database
-                _rep.GetPair(id).Left = input.data;
-                _rep.SaveChanges();
+                _repo.GetPair(id).Left = input.data;
+                _repo.SaveChanges();
             }
             else
             {
@@ -44,17 +46,17 @@ namespace base64diffs.Controllers
                 Pair pair = new Pair();
                 pair.Id = id;
                 pair.Left = input.data;
-                _rep.CreatePair(pair);
-                _rep.SaveChanges();
+                _repo.CreatePair(pair);
+                _repo.SaveChanges();
             }
 
             //returns status 201 (with path to get to new element and element itself)
-            return Created("/v1/diff/" + id.ToString(), _rep.GetPair(id));
+            return Created("/v1/diff/" + id.ToString(), _repo.GetPair(id));
         }
 
         // v1/diff/{id}/right
         [HttpPut("{id}/right")]
-        public ActionResult UpdateRight(int id, Right input)
+        public ActionResult UpdateRight(int id, RightCreateDTO input)
         {
             //checks if the input data is a valid BASE64 encoded string
             try
@@ -67,11 +69,11 @@ namespace base64diffs.Controllers
             }
 
             //checks if pair exists in the database 
-            if (_rep.PairDoesExist(id))
+            if (_repo.PairDoesExist(id))
             {
                 //updates data and saves changes to database
-                _rep.GetPair(id).Right = input.data;
-                _rep.SaveChanges();
+                _repo.GetPair(id).Right = input.data;
+                _repo.SaveChanges();
             }
             else
             {
@@ -79,12 +81,12 @@ namespace base64diffs.Controllers
                 Pair pair = new Pair();
                 pair.Id = id;
                 pair.Right = input.data;
-                _rep.CreatePair(pair);
-                _rep.SaveChanges();
+                _repo.CreatePair(pair);
+                _repo.SaveChanges();
             }
 
             //returns status 201 (with path to get to new element and element itself)
-            return Created("/v1/diff/" + id.ToString(), _rep.GetPair(id));
+            return Created("/v1/diff/" + id.ToString(), _repo.GetPair(id));
         }
 
     }

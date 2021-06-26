@@ -12,7 +12,7 @@ namespace base64diffs.Data
             throw new NotImplementedException();
         }
 
-        public Result GetDiffs(Pair pair)
+        public Result GetResults(Pair pair)
         {
             throw new NotImplementedException();
         }

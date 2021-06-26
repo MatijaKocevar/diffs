@@ -19,16 +19,14 @@ namespace base64diffs.Utils
             //check if lenghts are the same...if not return result type
             if (L.Length != R.Length)
             {
-                Result res = new Result();
-                res.diffResultType = "SizeDoNotMatch";
-                return res;
+                results.diffResultType = "SizeDoNotMatch";
+                return results;
             }
             //check if data is identical..if it is return result type
             else if (pair.Left == pair.Right)
             {
-                Result res = new Result();
-                res.diffResultType = "Equals";
-                return res;
+                results.diffResultType = "Equals";
+                return results;
             }
 
             //diffs found...use algorithm

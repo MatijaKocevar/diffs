@@ -17,12 +17,12 @@ namespace base64diffs.Data
         }
 
         //returns an object of type Result
-        public Result GetDiffs(Pair pair)
+        public Result GetResults(Pair pair)
         {
             return CalculateDiffs.getResult(pair);
         }
 
-        //return and object of type Pair
+        //return an object of type Pair
         public Pair GetPair(int id)
         {
             return _context.Pairs.FirstOrDefault(p => p.Id == id);

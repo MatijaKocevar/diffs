@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace base64diffs
 {
@@ -27,6 +28,9 @@ namespace base64diffs
            ));
 
             services.AddControllers();
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddScoped<IDiffsRepo, SqlDiffsRepo>();
 
         }

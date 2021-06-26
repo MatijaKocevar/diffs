@@ -32,11 +32,11 @@ public class TestClass
         diff2.Length = 2;
         test.diffs.Add(diff2);
 
-        var object1Json = JsonConvert.SerializeObject(test);
-        var object2Json = JsonConvert.SerializeObject(base64diffs.Utils.CalculateDiffs.getResult(pair));
+        var expected = JsonConvert.SerializeObject(test);
+        var actual = JsonConvert.SerializeObject(base64diffs.Utils.CalculateDiffs.getResult(pair));
 
 
-        Assert.Equal(object1Json, object2Json);
+        Assert.Equal(expected, actual);
     }
 
 
