@@ -1,11 +1,11 @@
 using System;
 using AutoMapper;
-using base64diffs.Data;
-using base64diffs.DTOs;
-using base64diffs.Models;
+using Diffing.Data;
+using Diffing.DTOs;
+using Diffing.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace base64diffs.Controllers
+namespace Diffing.Controllers
 {
 
     [Route("/v1/diff")] //controller level route

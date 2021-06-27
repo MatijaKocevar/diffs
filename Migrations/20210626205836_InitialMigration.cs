@@ -4,7 +4,7 @@
 // CREATE TABLE: dotnet ef database update
 // DELETE TABLE: dotnet ef database drop
 
-namespace base64diffs.Migrations
+namespace Diffing.Migrations
 {
     public partial class InitialMigration : Migration
     {

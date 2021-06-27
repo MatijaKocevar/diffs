@@ -1,13 +1,13 @@
-using base64diffs.Models;
+using Diffing.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace base64diffs.Data
+namespace Diffing.Data
 {
     //inherits from DBContext class
-    public class base64diffsContext : DbContext
+    public class DiffingContext : DbContext
     {
         //constructor...pass in options of our context
-        public base64diffsContext(DbContextOptions<base64diffsContext> opt) : base(opt) { }
+        public DiffingContext(DbContextOptions<DiffingContext> opt) : base(opt) { }
 
         //representation of our Pair objects which get passed down to our database
         public DbSet<Pair> Pairs { get; set; }

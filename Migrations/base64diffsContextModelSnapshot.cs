@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using base64diffs.Data;
+using Diffing.Data;
 
-namespace base64diffs.Migrations
+namespace Diffing.Migrations
 {
-    [DbContext(typeof(base64diffsContext))]
-    partial class base64diffsContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DiffingContext))]
+    partial class DiffingContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace base64diffs.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("base64diffs.Models.Pair", b =>
+            modelBuilder.Entity("Diffing.Models.Pair", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");

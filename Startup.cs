@@ -1,13 +1,12 @@
-using base64diffs.Data;
+using Diffing.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AutoMapper;
 
-namespace base64diffs
+namespace Diffing
 {
     public class Startup
     {
@@ -23,7 +22,7 @@ namespace base64diffs
         public void ConfigureServices(IServiceCollection services)
         {
             //configure DBContext to use withing application, with options(sql server and connection string) 
-            services.AddDbContext<base64diffsContext>(opt => opt.UseSqlServer(
+            services.AddDbContext<DiffingContext>(opt => opt.UseSqlServer(
                Configuration.GetConnectionString("DiffsConnection")
            ));
 

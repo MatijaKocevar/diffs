@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using base64diffs.Models;
+using Diffing.Models;
 
-namespace base64diffs.Utils
+namespace Diffing.Utils
 {
     public class CalculateDiffs
     {

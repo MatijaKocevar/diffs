@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace base64diffs.DTOs
+namespace Diffing.DTOs
 {
     public class ResultTypeDTO
     {

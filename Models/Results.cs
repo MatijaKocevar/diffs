@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace base64diffs.Models
+namespace Diffing.Models
 {
     //this is for storing a single diff
     public class Diff

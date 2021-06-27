@@ -1,41 +1,35 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using base64diffs.Models;
+using Diffing.Models;
 using Newtonsoft.Json;
 using Xunit;
 
-public class TestClass
+public class CalculationTestClass
 {
+
     [Fact]
     public void IsCalculationOfDiffsCorrect()
     {
-
+        //mock data LEFT & RIGHT
         Pair pair = new Pair();
-
         pair.Id = 3;
         pair.Left = "AAAAAA==";
         pair.Right = "AQABAQ==";
 
-
         Result test = new Result();
-        test.diffResultType = "ContentDoNotMatch";
         test.diffs = new List<Diff>();
-        Diff diff1 = new Diff();
-        Diff diff2 = new Diff();
 
-
-        diff1.Offset = 0;
-        diff1.Length = 1;
+        test.diffResultType = "ContentDoNotMatch";
+        Diff diff1 = new Diff { Offset = 0, Length = 1 };
+        Diff diff2 = new Diff { Offset = 2, Length = 2 };
         test.diffs.Add(diff1);
-        diff2.Offset = 2;
-        diff2.Length = 2;
         test.diffs.Add(diff2);
 
+        //convert expected result to serialized JSON object
         var expected = JsonConvert.SerializeObject(test);
-        var actual = JsonConvert.SerializeObject(base64diffs.Utils.CalculateDiffs.getResult(pair));
+        //get result from app and convert to serialized JSON object
+        var actual = JsonConvert.SerializeObject(Diffing.Utils.CalculateDiffs.getResult(pair));
 
-
+        //compare and return result
         Assert.Equal(expected, actual);
     }
 

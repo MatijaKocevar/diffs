@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using base64diffs.Models;
-using base64diffs.Utils;
+using Diffing.Models;
+using Diffing.Utils;
 
 
-namespace base64diffs.Data
+namespace Diffing.Data
 {
     public class SqlDiffsRepo : IDiffsRepo  //implementation of interface
     {
-        private readonly base64diffsContext _context;
+        private readonly DiffingContext _context;
 
-        public SqlDiffsRepo(base64diffsContext context)
+        public SqlDiffsRepo(DiffingContext context)
         {
             _context = context;
         }

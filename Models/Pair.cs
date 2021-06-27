@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace base64diffs.Models
+namespace Diffing.Models
 {
     //representation of data within our application
     //this is our model for storing left and right data (base64 strings)

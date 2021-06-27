@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using base64diffs.Models;
+using Diffing.Models;
 
-namespace base64diffs.Data
+namespace Diffing.Data
 {
     //interface defenition 
     public interface IDiffsRepo

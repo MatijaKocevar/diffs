@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace base64diffs.DTOs
+namespace Diffing.DTOs
 {
     public class LeftCreateDTO
     {

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using base64diffs.Data;
+using Diffing.Data;
 
-namespace base64diffs.Migrations
+namespace Diffing.Migrations
 {
-    [DbContext(typeof(base64diffsContext))]
+    [DbContext(typeof(DiffingContext))]
     [Migration("20210626205836_InitialMigration")]
     partial class InitialMigration
     {
@@ -20,7 +20,7 @@ namespace base64diffs.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("base64diffs.Models.Pair", b =>
+            modelBuilder.Entity("Diffing.Models.Pair", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
