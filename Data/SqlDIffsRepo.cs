@@ -17,7 +17,7 @@ namespace Diffing.Data
         }
 
         //returns all data in database
-        public IEnumerable<Pair> GetAllData()
+        public List<Pair> GetAllData()
         {
             return _context.Pairs.ToList();
         }

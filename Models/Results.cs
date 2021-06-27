@@ -1,7 +1,13 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Diffing.Models
 {
+    public class Base64Input
+    {
+        [Required]
+        public string data { get; set; }
+    }
     //this is for storing a single diff
     public class Diff
     {

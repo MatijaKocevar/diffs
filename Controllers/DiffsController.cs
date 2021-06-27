@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Diffing.Data;
 using Diffing.DTOs;
+using Diffing.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Diffing.Controllers
@@ -45,5 +48,86 @@ namespace Diffing.Controllers
             return Ok(response);
         }
 
+        // v1/diff
+        [HttpGet]
+        public ActionResult<IEnumerable<Pair>> GetAllData()
+        {
+            if (_repo.DoesDataExist() == false)
+                return NotFound();
+
+            return Ok(_repo.GetAllData());
+        }
+
+        // v1/diff/{id}/left
+        [HttpPut("{id}/left")]
+        public ActionResult UpdateLeft(int id, Base64Input input)
+        {
+            //checks if the input data is a valid BASE64 encoded string
+            try
+            {
+                byte[] T = Convert.FromBase64String(input.data);
+            }
+            catch (FormatException)
+            {
+                return BadRequest("Not a BASE64 encoded string");
+            }
+
+            //checks if pair exists in the database 
+            if (_repo.PairDoesExist(id))
+            {
+                //updates data and saves changes to database
+                _repo.GetPair(id).Left = input.data;
+                _repo.SaveChanges();
+            }
+            else
+            {
+                //creates new pair and saves changes to database
+                Pair pair = new Pair();
+                pair.Id = id;
+                pair.Left = input.data;
+                _repo.CreatePair(pair);
+                _repo.SaveChanges();
+            }
+
+            //returns status 201 (with path to get to new element and element itself)
+            return Created("/v1/diff/" + id.ToString(), _repo.GetPair(id));
+        }
+
+        // v1/diff/{id}/right
+        [HttpPut("{id}/right")]
+        public ActionResult UpdateRight(int id, Base64Input input)
+        {
+            //checks if the input data is a valid BASE64 encoded string
+            try
+            {
+                byte[] T = Convert.FromBase64String(input.data);
+            }
+            catch (FormatException)
+            {
+                return BadRequest("Not a BASE64 encoded string");
+            }
+
+            //checks if pair exists in the database 
+            if (_repo.PairDoesExist(id))
+            {
+                //updates data and saves changes to database
+                _repo.GetPair(id).Right = input.data;
+                _repo.SaveChanges();
+            }
+            else
+            {
+                //creates new pair and saves changes to database
+                Pair pair = new Pair();
+                pair.Id = id;
+                pair.Right = input.data;
+                _repo.CreatePair(pair);
+                _repo.SaveChanges();
+            }
+
+            //returns status 201 (with path to get to new element and element itself)
+            return Created("/v1/diff/" + id.ToString(), _repo.GetPair(id));
+        }
+
     }
+
 }

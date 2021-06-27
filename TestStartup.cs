@@ -8,10 +8,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace Diffing
 {
-    public class Startup
+    public class TestStartup
     {
         //access to configuration API
-        public Startup(IConfiguration configuration)
+        public TestStartup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -26,7 +26,7 @@ namespace Diffing
                Configuration.GetConnectionString("DiffsConnection")
            ));
 
-            services.AddControllers();
+            services.AddControllers().AddApplicationPart(typeof(Diffing.Startup).Assembly);
 
             services.AddAutoMapper(typeof(Startup));
 
