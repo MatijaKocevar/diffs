@@ -16,6 +16,20 @@ namespace Diffing.Data
             _context = context;
         }
 
+        //returns all data in database
+        public IEnumerable<Pair> GetAllData()
+        {
+            return _context.Pairs.ToList();
+        }
+
+        public bool DoesDataExist()
+        {
+            if (_context.Pairs.Count() == 0)
+                return false;
+
+            return true;
+        }
+
         //returns an object of type Result
         public Result GetResults(Pair pair)
         {
@@ -49,5 +63,6 @@ namespace Diffing.Data
         {
             _context.Pairs.Add(pair);
         }
+
     }
 }

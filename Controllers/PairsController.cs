@@ -1,5 +1,5 @@
 using System;
-using AutoMapper;
+using System.Collections.Generic;
 using Diffing.Data;
 using Diffing.DTOs;
 using Diffing.Models;
@@ -17,6 +17,16 @@ namespace Diffing.Controllers
         public PairsController(IDiffsRepo repository)
         {
             _repo = repository;
+        }
+
+        // v1/diff
+        [HttpGet]
+        public ActionResult<IEnumerable<Pair>> GetAllData()
+        {
+            if (_repo.DoesDataExist() == false)
+                return BadRequest();
+
+            return Ok(_repo.GetAllData());
         }
 
         // v1/diff/{id}/left

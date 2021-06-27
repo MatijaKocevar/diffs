@@ -6,6 +6,8 @@ namespace Diffing.Data
     //interface defenition 
     public interface IDiffsRepo
     {
+        IEnumerable<Pair> GetAllData();
+        bool DoesDataExist();
         Result GetResults(Pair pair);
         Pair GetPair(int id);
         bool PairDoesExist(int id);
