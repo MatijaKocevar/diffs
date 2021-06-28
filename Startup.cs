@@ -30,7 +30,10 @@ namespace Diffing
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<IDiffsRepo, SqlDiffsRepo>();
+            services.AddSingleton<IDiffsRepo, MockDiffsRepo>();
+
+            //access database from different domain
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader()));
 
             //services.AddScoped<IDiffsRepo, SqlDiffsRepo>();
 
@@ -48,6 +51,8 @@ namespace Diffing
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

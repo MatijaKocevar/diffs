@@ -22,6 +22,16 @@ namespace Diffing.Controllers
             _mapper = mapper;
         }
 
+        // v1/diff
+        [HttpGet]
+        public ActionResult<IEnumerable<Pair>> GetAllData()
+        {
+            if (_repo.DoesDataExist() == false)
+                return NotFound();
+
+            return Ok(_repo.GetAllData());
+        }
+
         // v1/diff/{id}
         [HttpGet("{id}")]
         public ActionResult GetResults(int id)
@@ -48,15 +58,6 @@ namespace Diffing.Controllers
             return Ok(response);
         }
 
-        // v1/diff
-        [HttpGet]
-        public ActionResult<IEnumerable<Pair>> GetAllData()
-        {
-            if (_repo.DoesDataExist() == false)
-                return NotFound();
-
-            return Ok(_repo.GetAllData());
-        }
 
         // v1/diff/{id}/left
         [HttpPut("{id}/left")]
